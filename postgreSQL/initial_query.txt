@@ -1,0 +1,91 @@
+CREATE TABLE brand (
+	id bigserial not null,
+    name varchar(80) not null,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE water_parameter (
+	id bigserial not null,
+    name varchar(25) not null,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE intervention_level (
+	id bigserial not null,
+    description varchar(25) not null,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE parameter_scale (
+	id bigserial not null,
+    value int not null,
+	intervention_level bigint not null references intervention_level(id),
+	parameter bigint not null references water_parameter(id),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE product (
+	id bigserial not null,
+    name varchar(100) not null,
+	brand bigint references brand(id),
+	affected_parameter bigint not null references water_parameter(id),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE calculation (
+	id bigserial not null,
+	multiplier integer not null,
+	product bigint references product(id),
+	intervention_level bigint not null references intervention_level(id),
+	formula bigint references formula(id),
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE formula (
+	id bigserial not null,
+	formula varchar(120) not null,
+	PRIMARY KEY (id)
+);
+
+ALTER TABLE parameter_scale
+    ADD CONSTRAINT fk_ps_intervention_level FOREIGN KEY (intervention_level) REFERENCES intervention_level (id);
+	
+ALTER TABLE parameter_scale
+    ADD CONSTRAINT fk_ps_parameter FOREIGN KEY (parameter) REFERENCES water_parameter (id);
+	
+ALTER TABLE parameter_scale
+    ADD CONSTRAINT fk_ps_parameter FOREIGN KEY (parameter) REFERENCES water_parameter (id);
+	
+ALTER TABLE product
+    ADD CONSTRAINT fk_product_brand FOREIGN KEY (brand) REFERENCES brand (id);
+	
+ALTER TABLE calculation
+    ADD CONSTRAINT fk_calculation_product FOREIGN KEY (product) REFERENCES product (id);
+	
+ALTER TABLE calculation
+    ADD CONSTRAINT fk_calculation_il FOREIGN KEY (intervention_level) REFERENCES intervention_level (id);
+	
+ALTER TABLE calculation
+    ADD CONSTRAINT fk_calculation_formula FOREIGN KEY (formula) REFERENCES formula (id);
+	
+insert into brand(name) values('Hth');
+insert into water_parameter(name) values('cloro');
+insert into water_parameter(name) values('pH');
+insert into water_parameter(name) values('alcalinidade');
+insert into water_parameter(name) values('turbidez');
+insert into intervention_level(description) values('pouca');
+insert into intervention_level(description) values('moderada');
+insert into intervention_level(description) values('intensa');
+insert into intervention_level(description) values ('nenhuma')
+insert into parameter_scale(value, intervention_level, parameter) values(0, 3, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(1, 3, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(2, 2, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(3, 1, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(4, 1, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(5, 4, 1);
+insert into parameter_scale(value, intervention_level, parameter) values(6, 4, 1);
+insert into product(name, brand, affected_parameter) values ('Cloro Concentrado Tradicional', 1, 1);
+insert into formula(formula) values ('($m * $v)/ 0.65');
+insert into calculation(multiplier, product, intervention_level, formula) values (5, 1, 3, 1);
+
+	

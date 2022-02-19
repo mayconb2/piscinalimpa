@@ -8,7 +8,7 @@ public class Product {
     @Id
     private Long id;
 
-    @JoinColumn(name = "water_parameter")
+    @JoinColumn(name = "affected_parameter")
     @ManyToOne
     private Parameter affectedParameter;
 

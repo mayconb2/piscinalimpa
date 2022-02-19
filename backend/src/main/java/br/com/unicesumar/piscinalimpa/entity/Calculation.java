@@ -17,13 +17,21 @@ public class Calculation {
     @OneToOne
     private InterventionLevel interventionLevel;
 
+    @JoinColumn(name = "formula")
+    @ManyToOne
+    private Formula formula;
+
+    private Integer multiplier;
+
     public Calculation() {
     }
 
-    public Calculation(Long id, Product product, InterventionLevel interventionLevel) {
+    public Calculation(Long id, Product product, InterventionLevel interventionLevel, Formula formula, Integer multiplier) {
         this.id = id;
         this.product = product;
         this.interventionLevel = interventionLevel;
+        this.formula = formula;
+        this.multiplier = multiplier;
     }
 
     public Long getId() {
@@ -48,5 +56,21 @@ public class Calculation {
 
     public void setInterventionLevel(InterventionLevel interventionLevel) {
         this.interventionLevel = interventionLevel;
+    }
+
+    public Formula getFormula() {
+        return formula;
+    }
+
+    public void setFormula(Formula formula) {
+        this.formula = formula;
+    }
+
+    public Integer getMultiplier() {
+        return multiplier;
+    }
+
+    public void setMultiplier(Integer multiplier) {
+        this.multiplier = multiplier;
     }
 }

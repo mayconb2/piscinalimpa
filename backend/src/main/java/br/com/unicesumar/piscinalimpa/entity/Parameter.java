@@ -2,6 +2,7 @@ package br.com.unicesumar.piscinalimpa.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity(name = "water_parameter")
 public class Parameter {
