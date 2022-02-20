@@ -1,6 +1,6 @@
 package br.com.unicesumar.piscinalimpa.controller;
 
-import br.com.unicesumar.piscinalimpa.UserTypeNotAllowed;
+import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/adm/user")
+@RequestMapping("/v1/adm/user")
 @Slf4j
 public class UserController {
 

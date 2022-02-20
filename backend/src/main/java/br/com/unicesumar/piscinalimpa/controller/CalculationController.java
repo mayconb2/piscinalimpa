@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 
 @RestController
-@RequestMapping(value = "/calculation")
+@RequestMapping(value = "/v1/calculation")
 public class CalculationController {
 
     private final CalculationService calculationService;

@@ -1,6 +1,7 @@
 package br.com.unicesumar.piscinalimpa.dto;
 
 import br.com.unicesumar.piscinalimpa.entity.UserType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
@@ -10,6 +11,7 @@ public class UserBackofficeDTO implements Serializable {
 
     private Long id;
     private String login;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String type;
 

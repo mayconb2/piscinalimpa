@@ -1,6 +1,6 @@
 package br.com.unicesumar.piscinalimpa.service;
 
-import br.com.unicesumar.piscinalimpa.UserTypeNotAllowed;
+import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.entity.UserBackoffice;
 import br.com.unicesumar.piscinalimpa.entity.UserType;

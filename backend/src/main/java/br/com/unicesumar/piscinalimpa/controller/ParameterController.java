@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/parameter")
+@RequestMapping(value = "/v1/parameter")
 public class ParameterController {
 
     private final ParameterService parameterService;

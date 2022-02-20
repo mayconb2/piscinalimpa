@@ -1,7 +1,4 @@
-package br.com.unicesumar.piscinalimpa;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
+package br.com.unicesumar.piscinalimpa.exception;
 
 public class UserTypeNotAllowed extends RuntimeException {
 
