@@ -7,6 +7,7 @@ import javax.persistence.*;
 public class Calculation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JoinColumn(name = "product")
