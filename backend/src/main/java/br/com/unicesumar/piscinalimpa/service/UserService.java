@@ -1,7 +1,9 @@
 package br.com.unicesumar.piscinalimpa.service;
 
+import br.com.unicesumar.piscinalimpa.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.entity.UserBackoffice;
+import br.com.unicesumar.piscinalimpa.entity.UserType;
 import br.com.unicesumar.piscinalimpa.repository.UserBackofficeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,6 +35,10 @@ public class UserService {
     public UserBackoffice createUser(UserBackofficeDTO dto) {
 
         dto.setPassword(passwordEncoder.encode(dto.getPassword()));
+
+        if(!(dto.getType().equalsIgnoreCase(UserType.USER.getType()) || dto.getType().equalsIgnoreCase(UserType.ADMIN.getType()))) {
+            throw new UserTypeNotAllowed("Tipo de usuário não permitido:: " + dto.getType());
+        }
 
         return userRepository.save(mapper.map(dto, UserBackoffice.class));
     }
