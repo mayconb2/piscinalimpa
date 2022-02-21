@@ -12,7 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -28,6 +27,7 @@ public class JWTFilterAuthenticate extends UsernamePasswordAuthenticationFilter 
     public static final String TOKEN_GUID = "b427eae2-2f9d-47b8-8bad-e8b67e9a39c8";
 
     public JWTFilterAuthenticate(AuthenticationManager authenticationManager) {
+        super.setAuthenticationFailureHandler(new JWTAuthenticationFailureHandler());
         this.authenticationManager = authenticationManager;
     }
 
@@ -63,6 +63,9 @@ public class JWTFilterAuthenticate extends UsernamePasswordAuthenticationFilter 
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TOKEN))
                 .sign(Algorithm.HMAC512(TOKEN_GUID));
 
+
+        response.addHeader("Authorization", "Bearer " + token);
+        response.addHeader("access-control-expose-headers", "Authorization");
         response.getWriter().write(token);
         response.getWriter().flush();
     }

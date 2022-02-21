@@ -95,7 +95,7 @@ insert into calculation(multiplier, product, intervention_level, formula) values
 CREATE TABLE user_backoffice (
 	id bigserial not null,
     login varchar(25) unique not null,
-	password varchar(25),
+	password varchar(100),
 	type varchar(25),
     PRIMARY KEY (id)
 );
