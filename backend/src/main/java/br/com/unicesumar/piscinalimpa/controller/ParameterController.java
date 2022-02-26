@@ -1,16 +1,10 @@
 package br.com.unicesumar.piscinalimpa.controller;
 
-import br.com.unicesumar.piscinalimpa.dto.ParameterDTO;
-import br.com.unicesumar.piscinalimpa.entity.Parameter;
 import br.com.unicesumar.piscinalimpa.service.ParameterService;
-import com.udojava.evalex.Expression;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/v1/parameter")
