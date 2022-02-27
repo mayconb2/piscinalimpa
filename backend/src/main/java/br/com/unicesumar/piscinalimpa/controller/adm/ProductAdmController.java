@@ -4,6 +4,7 @@ import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +47,17 @@ public class ProductAdmController {
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity deleteProduct(@PathVariable Long id) {
-        productService.deleteById(id);
-        return null;
+
+        try {
+            productService.deleteById(id);
+            return ResponseEntity.ok("Produto de id: "+ id + " foi deletado com sucesso");
+        } catch (EmptyResultDataAccessException nfe) {
+            log.error("Erro ao atualizar produto: {}", nfe);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
+        } catch (Exception e) {
+            log.error("Erro ao deletar produto: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+
     }
 }

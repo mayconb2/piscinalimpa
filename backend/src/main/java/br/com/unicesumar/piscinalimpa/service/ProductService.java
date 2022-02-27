@@ -60,7 +60,6 @@ public class ProductService {
     }
 
     public void deleteById(Long id) {
-
-//        productRepository.findById(id).orElseThrow(() -> );
+        productRepository.deleteById(id);
     }
 }
