@@ -1,4 +1,4 @@
-package br.com.unicesumar.piscinalimpa.controller;
+package br.com.unicesumar.piscinalimpa.controller.api;
 
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.service.ProductService;
@@ -13,11 +13,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/product")
 @Slf4j
-public class ProductController {
+public class ProductApiController {
 
     private final ProductService productService;
 
-    public ProductController(ProductService productService) {
+    public ProductApiController(ProductService productService) {
         this.productService = productService;
     }
 

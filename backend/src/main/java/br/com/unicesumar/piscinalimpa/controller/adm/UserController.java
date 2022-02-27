@@ -1,4 +1,4 @@
-package br.com.unicesumar.piscinalimpa.controller;
+package br.com.unicesumar.piscinalimpa.controller.adm;
 
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;

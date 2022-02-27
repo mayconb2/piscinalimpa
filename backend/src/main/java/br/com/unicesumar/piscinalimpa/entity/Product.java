@@ -17,13 +17,16 @@ public class Product {
     @ManyToOne
     private Brand brand;
 
+    private String name;
+
     public Product() {
     }
 
-    public Product(Long id, Parameter affectedParameter, Brand brand) {
+    public Product(Long id, Parameter affectedParameter, Brand brand, String name) {
         this.id = id;
         this.affectedParameter = affectedParameter;
         this.brand = brand;
+        this.name = name;
     }
 
     public Long getId() {
@@ -48,5 +51,13 @@ public class Product {
 
     public void setBrand(Brand brand) {
         this.brand = brand;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

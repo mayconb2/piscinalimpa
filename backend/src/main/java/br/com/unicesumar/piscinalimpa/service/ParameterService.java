@@ -25,4 +25,9 @@ public class ParameterService {
         return allParameters.stream().map(parameter -> mapper.map(parameter, ParameterDTO.class))
                 .collect(Collectors.toList());
     }
+
+    public Parameter findById(Long id) {
+        return this.parameterRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Não foi possível achar parâmetro com id: " + id));
+    }
 }

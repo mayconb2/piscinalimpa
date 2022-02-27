@@ -1,4 +1,4 @@
-package br.com.unicesumar.piscinalimpa.controller;
+package br.com.unicesumar.piscinalimpa.controller.api;
 
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.service.CalculationService;
