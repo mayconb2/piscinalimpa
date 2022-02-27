@@ -1,9 +1,11 @@
 package br.com.unicesumar.piscinalimpa.controller.api;
 
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
+import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.CalculationService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,9 @@ public class CalculationController {
         try {
             var bigDecimal = calculationService.performCalculation(volume, product, interventionLevel);
             return ResponseEntity.ok().body(bigDecimal);
+        } catch (NotFoundException nfe) {
+            log.error("Erro ao consultar cálculo de produto {}", nfe);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
         } catch (Exception e) {
             log.error("Erro ao consultar cálculo de produto {}", e);
             return ResponseEntity.badRequest().body(e.getMessage());

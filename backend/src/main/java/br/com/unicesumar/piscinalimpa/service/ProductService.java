@@ -2,6 +2,7 @@ package br.com.unicesumar.piscinalimpa.service;
 
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.entity.Product;
+import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -38,7 +39,7 @@ public class ProductService {
 
     public ProductDTO update(ProductDTO dto) {
         var product = this.productRepository.findById(dto.getId())
-                .orElseThrow(() -> new RuntimeException("Não foi possível localizar produto com id: " + dto.getId()));
+                .orElseThrow(() -> new NotFoundException("Não foi possível localizar produto com id: " + dto.getId()));
 
         if (!dto.getAffectedParameterId().equals(product.getAffectedParameter().getId())) {
             var parameter = parameterService.findById(dto.getAffectedParameterId());
@@ -56,5 +57,10 @@ public class ProductService {
 
         var updatedProduct = productRepository.save(product);
         return mapper.map(updatedProduct, ProductDTO.class);
+    }
+
+    public void deleteById(Long id) {
+
+//        productRepository.findById(id).orElseThrow(() -> );
     }
 }

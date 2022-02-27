@@ -1,6 +1,7 @@
 package br.com.unicesumar.piscinalimpa.service;
 
 import br.com.unicesumar.piscinalimpa.entity.Brand;
+import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.BrandRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,6 @@ public class BrandService {
 
     public Brand findById(Long id) {
         return this.brandRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não foi possível encontrar marca com id: " + id));
+                .orElseThrow(() -> new NotFoundException("Não foi possível encontrar marca com id: " + id));
     }
 }

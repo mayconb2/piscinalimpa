@@ -2,6 +2,7 @@ package br.com.unicesumar.piscinalimpa.service;
 
 import br.com.unicesumar.piscinalimpa.dto.ParameterDTO;
 import br.com.unicesumar.piscinalimpa.entity.Parameter;
+import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.ParameterRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,6 @@ public class ParameterService {
 
     public Parameter findById(Long id) {
         return this.parameterRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Não foi possível achar parâmetro com id: " + id));
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar parâmetro com id: " + id));
     }
 }
