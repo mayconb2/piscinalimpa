@@ -23,13 +23,17 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserBackofficeDTO>> findAll() {
-        List<UserBackofficeDTO> usersBackoffice = userService.listAllUsers();
-        return ResponseEntity.ok(usersBackoffice);
+        try {
+            List<UserBackofficeDTO> usersBackoffice = userService.listAllUsers();
+            return ResponseEntity.ok(usersBackoffice);
+        } catch (Exception e) {
+            log.error("Erro ao consultar lista de usuários {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
     @PostMapping
     public ResponseEntity createUser(@RequestBody UserBackofficeDTO userDTO) {
-
         try {
             var user = userService.createUser(userDTO);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
@@ -37,6 +41,5 @@ public class UserController {
             log.error("Tipo de usuário não permitido:: " + userDTO.getType());
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Tipo de usuário não permitido:: " + userDTO.getType());
         }
-
     }
 }

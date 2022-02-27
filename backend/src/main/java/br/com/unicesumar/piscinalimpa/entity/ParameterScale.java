@@ -15,7 +15,7 @@ public class ParameterScale {
     @ManyToOne
     private InterventionLevel interventionLevel;
 
-    @JoinColumn(name = "water_parameter")
+    @JoinColumn(name = "parameter")
     @ManyToOne
     private Parameter parameter;
 

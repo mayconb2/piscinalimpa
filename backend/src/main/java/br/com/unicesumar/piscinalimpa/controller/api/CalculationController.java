@@ -1,6 +1,7 @@
 package br.com.unicesumar.piscinalimpa.controller.api;
 
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
+import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.CalculationService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,6 +43,7 @@ public class CalculationController {
     @PostMapping
     public ResponseEntity performCalculation(@RequestBody ApplicationForm form) {
 
-        return  ResponseEntity.ok(calculationService.suggestions(form));
+        CalculationDTO calculationDTO = calculationService.retrieveProductsSuggestion(form);
+        return  ResponseEntity.ok(calculationDTO);
     }
 }

@@ -6,7 +6,8 @@ public class ApplicationForm {
 
     private Double volume;
     private List<ProductDTO> products;
-    private Long interventionLevel;
+    private List<ParameterValues> parameters;
+//    private Long interventionLevel;
 
     public Double getVolume() {
         return volume;
@@ -24,11 +25,19 @@ public class ApplicationForm {
         this.products = products;
     }
 
-    public Long getInterventionLevel() {
-        return interventionLevel;
+    public List<ParameterValues> getParameters() {
+        return parameters;
     }
 
-    public void setInterventionLevel(Long interventionLevel) {
-        this.interventionLevel = interventionLevel;
+    public void setParameters(List<ParameterValues> parameters) {
+        this.parameters = parameters;
     }
+
+    //    public Long getInterventionLevel() {
+//        return interventionLevel;
+//    }
+//
+//    public void setInterventionLevel(Long interventionLevel) {
+//        this.interventionLevel = interventionLevel;
+//    }
 }
