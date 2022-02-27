@@ -30,13 +30,13 @@ public class ProductAdmController {
     }
 
     @PutMapping
-    public ResponseEntity<ProductDTO> updateProduct(@RequestBody ProductDTO dto) {
+    public ResponseEntity updateProduct(@RequestBody ProductDTO dto) {
         try {
             ProductDTO updatedto = this.productService.update(dto);
             return ResponseEntity.ok(updatedto);
         } catch (Exception e) {
             log.error("Erro ao atualizar produto: {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }
