@@ -7,7 +7,6 @@ public class ApplicationForm {
     private Double volume;
     private List<ProductDTO> products;
     private List<ParameterValues> parameters;
-//    private Long interventionLevel;
 
     public Double getVolume() {
         return volume;

@@ -4,6 +4,7 @@ import br.com.unicesumar.piscinalimpa.controller.utils.FormulaReplace;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationSuggestionDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
+import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.entity.Calculation;
 import br.com.unicesumar.piscinalimpa.entity.ParameterScale;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
@@ -17,12 +18,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class CalculationService {
 
     private final CalculationRepository calculationRepository;
     private final ParameterScaleService parameterScaleService;
+    private static final Long ACCEPTABLE_LEVEL_INTERVENTION = 4L;
 
     public CalculationService(CalculationRepository calculationRepository, ParameterScaleService parameterScaleService) {
         this.calculationRepository = calculationRepository;
@@ -30,7 +34,6 @@ public class CalculationService {
     }
 
     public BigDecimal performCalculation(final Double volume, final Long productId, final Long intervantionLevel) {
-
         Calculation calculation = calculationRepository.findByProductIdAndInterventionLevelId(productId, intervantionLevel)
                 .orElseThrow(() -> new NotFoundException("Calculation not found"));
 
@@ -38,7 +41,6 @@ public class CalculationService {
                 calculation.getMultiplier(), volume);
 
         return new Expression(formula).eval();
-
     }
 
     public List<ApplicationSuggestionDTO> suggestions(ApplicationForm applicationForms) {
@@ -64,17 +66,12 @@ public class CalculationService {
     }
 
     public CalculationDTO retrieveProductsSuggestion(ApplicationForm form) {
-
         Map<Long, Long> mapParaInterLvl = new HashMap<>();
 
-        //pegar intervention levl pra cada parametro
-        form.getParameters().stream().forEach(parameterValues -> {
-
+        form.getParameters().forEach(parameterValues -> {
             ParameterScale pScale = this.parameterScaleService
-                    .findByParameterIdAndValue(parameterValues.getId(), parameterValues.getValue());
-
-            mapParaInterLvl.put(parameterValues.getId(), pScale.getInterventionLevel().getId());
-
+                    .findByParameterIdAndValue(parameterValues.getParameterId(), parameterValues.getValue());
+            mapParaInterLvl.put(parameterValues.getParameterId(), pScale.getInterventionLevel().getId());
         });
 
         List<ApplicationSuggestionDTO> suggestions = new ArrayList<>();
@@ -92,14 +89,32 @@ public class CalculationService {
             BigDecimal productSuggestion = new Expression(formula).eval().setScale(2, RoundingMode.HALF_EVEN);
 
             suggestions.add(new ApplicationSuggestionDTO(product, productSuggestion));
-
         });
 
-        return new CalculationDTO(true, suggestions);
+        boolean hasMinimumProducts = verifyMinimumProducts(form);
+
+        return new CalculationDTO(hasMinimumProducts, suggestions);
+    }
+
+    private boolean verifyMinimumProducts(ApplicationForm applicationForm) {
+        List<Long> parametersWithInterventionLevel = new ArrayList<>();
+
+        var parameters = applicationForm.getParameters();
+
+        parameters.forEach(parameter -> {
+            var parameterScale = parameterScaleService
+                    .findByParameterIdAndValue(parameter.getParameterId(), parameter.getValue());
+
+            if (!Objects.equals(parameterScale.getInterventionLevel().getId(), ACCEPTABLE_LEVEL_INTERVENTION)) {
+                parametersWithInterventionLevel.add(parameterScale.getParameter().getId());
+            }
+        });
+
+        var affectedParams = applicationForm.getProducts()
+                .stream()
+                .map(ProductDTO::getAffectedParameterId)
+                .collect(Collectors.toList());
+
+        return affectedParams.containsAll(parametersWithInterventionLevel);
     }
 }
-
-
-//    Calculation calculation = this.calculationRepository
-//            .findByProductIdAndInterventionLevelId(product.getId(), applicationForms.getInterventionLevel())
-//            .orElse(null);

@@ -2,15 +2,15 @@ package br.com.unicesumar.piscinalimpa.dto;
 
 public class ParameterValues {
 
-    private Long id;
+    private Long parameterId;
     private Integer value;
 
-    public Long getId() {
-        return id;
+    public Long getParameterId() {
+        return parameterId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setParameterId(Long parameterId) {
+        this.parameterId = parameterId;
     }
 
     public Integer getValue() {

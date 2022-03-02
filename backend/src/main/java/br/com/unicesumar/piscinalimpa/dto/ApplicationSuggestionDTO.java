@@ -6,7 +6,6 @@ public class ApplicationSuggestionDTO {
 
     private ProductDTO product;
     private BigDecimal suggestion;
-//    private Boolean hasMinimumProducts;
 
     public ApplicationSuggestionDTO() {
     }
@@ -32,11 +31,4 @@ public class ApplicationSuggestionDTO {
         this.suggestion = suggestion;
     }
 
-//    public Boolean getHasMinimumProducts() {
-//        return hasMinimumProducts;
-//    }
-//
-//    public void setHasMinimumProducts(Boolean hasMinimumProducts) {
-//        this.hasMinimumProducts = hasMinimumProducts;
-//    }
 }
