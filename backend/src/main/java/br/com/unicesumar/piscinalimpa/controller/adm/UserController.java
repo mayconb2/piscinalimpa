@@ -3,6 +3,9 @@ package br.com.unicesumar.piscinalimpa.controller.adm;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ public class UserController {
     }
 
     @GetMapping
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity<List<UserBackofficeDTO>> findAll() {
         try {
             List<UserBackofficeDTO> usersBackoffice = userService.listAllUsers();
@@ -33,6 +37,7 @@ public class UserController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity createUser(@RequestBody UserBackofficeDTO userDTO) {
         try {
             var user = userService.createUser(userDTO);

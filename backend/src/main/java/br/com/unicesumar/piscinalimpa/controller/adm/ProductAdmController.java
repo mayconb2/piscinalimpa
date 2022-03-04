@@ -3,6 +3,8 @@ package br.com.unicesumar.piscinalimpa.controller.adm;
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.ProductService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,7 @@ public class ProductAdmController {
     }
 
     @PostMapping
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO dto) {
         try {
             var product = this.productService.create(dto);
@@ -32,6 +35,7 @@ public class ProductAdmController {
     }
 
     @PutMapping
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity updateProduct(@RequestBody ProductDTO dto) {
         try {
             ProductDTO updatedto = this.productService.update(dto);
@@ -46,6 +50,7 @@ public class ProductAdmController {
     }
 
     @DeleteMapping(value = "/{id}")
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity deleteProduct(@PathVariable Long id) {
 
         try {

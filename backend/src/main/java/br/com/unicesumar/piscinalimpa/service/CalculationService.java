@@ -115,6 +115,10 @@ public class CalculationService {
                 .map(ProductDTO::getAffectedParameterId)
                 .collect(Collectors.toList());
 
+        //talvez criar um Map de boolean,listparams
+        //se for falso, lista vazia. Se for true, contem os params que precisão de intervanção mas n tem produto
+        //adicionar cmapo no dto com dtos dos parametros que precisam de intervenção mas n tem produto
+        //retornar esse map
         return affectedParams.containsAll(parametersWithInterventionLevel);
     }
 }
