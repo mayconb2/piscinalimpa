@@ -3,7 +3,6 @@ package br.com.unicesumar.piscinalimpa.controller.adm;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
 import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.service.UserService;
-import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
@@ -16,11 +15,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/adm/v1/user")
 @Slf4j
-public class UserController {
+public class UserAdmController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserAdmController(UserService userService) {
         this.userService = userService;
     }
 

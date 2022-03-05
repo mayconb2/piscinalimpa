@@ -66,7 +66,7 @@ public class JWTFilterAuthenticate extends UsernamePasswordAuthenticationFilter 
 
         response.addHeader("Authorization", "Bearer " + token);
         response.addHeader("access-control-expose-headers", "Authorization");
-        response.getWriter().write(token);
+        response.getWriter().write("Bearer " + token);
         response.getWriter().flush();
     }
 }
