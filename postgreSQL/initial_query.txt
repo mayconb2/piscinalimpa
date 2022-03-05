@@ -87,6 +87,8 @@ insert into parameter_scale(value, intervention_level, parameter) values(6, 4, 1
 insert into product(name, brand, affected_parameter) values ('Cloro Concentrado Tradicional', 1, 1);
 insert into formula(formula) values ('($m * $v)/ 0.65');
 insert into calculation(multiplier, product, intervention_level, formula) values (5, 1, 3, 1);
+insert into formula(formula) values ('(17 * m * v)');
+insert into calculation(multiplier, product, intervention_level, formula) values (8, 7, 3, 2);
 
 
 
