@@ -15,6 +15,7 @@
 
 .header .title-group i {
   padding-right: 5px;
+  font-size: 1.1rem;
 }
 
 .v-middle {
@@ -22,5 +23,6 @@
 }
 
 .app-name {
-  padding-left: 35%;
+  padding-left: 2.5%;
+  font-size: 0.95rem;
 }
