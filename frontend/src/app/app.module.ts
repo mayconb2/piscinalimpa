@@ -10,11 +10,13 @@ import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { FooterComponent } from './components/template/footer/footer.component';
 import { NavComponent } from './components/template/nav/nav.component';
-import { HomeComponent } from './views/home/home.component';
-import { CalculationFormComponent } from './views/calculation-form/calculation-form.component';
+import { HomeComponent } from './components/views/home/home.component';
+import { CalculationFormComponent } from './components/views/calculation-form/calculation-form.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { CalculationFormComponent } from './views/calculation-form/calculation-f
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './views/home/home.component';
-import { CalculationFormComponent } from './views/calculation-form/calculation-form.component';
+import { HomeComponent } from './components/views/home/home.component';
+import { CalculationFormComponent } from './components/views/calculation-form/calculation-form.component';
 
-const routes: Routes = [{
-  path:"",
-  component: HomeComponent
+const routes: Routes = [
+  {
+    path:"",
+    component: HomeComponent
   },
   {
     path:"calculation",
