@@ -10,6 +10,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -36,6 +37,12 @@ public class JWTFilterAuthenticate extends UsernamePasswordAuthenticationFilter 
                                                 HttpServletResponse response) throws AuthenticationException {
 
         try {
+            if(CorsUtils.isPreFlightRequest(request)) {
+                response.setStatus(HttpServletResponse.SC_OK);
+            }
+
+            response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+
             UserBackoffice user = new ObjectMapper()
                     .readValue(request.getInputStream(), UserBackoffice.class);
 
