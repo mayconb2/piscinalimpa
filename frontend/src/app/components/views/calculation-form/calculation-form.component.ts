@@ -1,6 +1,9 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Product } from '../../product/product';
 import { ProductService } from '../../product/product.service';
+import { Common } from '../../common/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-calculation-form',
@@ -9,12 +12,26 @@ import { ProductService } from '../../product/product.service';
 })
 export class CalculationFormComponent implements OnInit {
 
-  constructor(private productService: ProductService) { }
+  pruduct: Product = {
+    name: 'Elevador Ph',
+    affectedParameter: 2,
+    brand: 1
+  }
+
+  constructor(private productService: ProductService,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   showMessage() : void {
     this.productService.showMessage("Deu liga")
+  }
+
+  createProduct() {
+    this.productService.create(this.pruduct).subscribe(() => {
+      this.showMessage()
+    })
+
   }
 }
