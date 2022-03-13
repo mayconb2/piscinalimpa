@@ -1,5 +1,117 @@
-<p>calculation-form works!</p>
+<mat-card>
+  <mat-card-title>Cálculo de Produtos</mat-card-title>
+  <form>
+    
+    <mat-form-field>
+      <input matInput placeholder="Volume da Piscina em m³"
+        [(ngModel)]="applicationForm.volume"
+        name="volume">
+    </mat-form-field>
 
-<button mat-raised-button (click)="createProduct()">
-  Criar
-</button>
+    <hr>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Medição de cloro</mat-label>
+      <mat-select>
+        <mat-option value="1">1 ppm</mat-option>
+        <mat-option value="2">2 ppm</mat-option>
+        <mat-option value="3">3 ppm</mat-option>
+        <mat-option value="4">4 ppm</mat-option>
+        <mat-option value="5">5 ppm</mat-option>
+        <mat-option value="6">+5 ppm</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Medição do pH</mat-label>
+      <mat-select>
+        <mat-option value="66">Menor que 6.8</mat-option>
+        <mat-option value="68">6.8</mat-option>
+        <mat-option value="70">7.0</mat-option>
+        <mat-option value="72">7.2</mat-option>
+        <mat-option value="74">7.4</mat-option>
+        <mat-option value="76">7.6</mat-option>
+        <mat-option value="78">7.8</mat-option>
+        <mat-option value="82">8.2 ou maior</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Medição da alcalinidade</mat-label>
+      <mat-select>
+        <mat-option value="0">0 ppm</mat-option>
+        <mat-option value="10">10 ppm</mat-option>
+        <mat-option value="20">20 ppm</mat-option>
+        <mat-option value="30">30 ppm</mat-option>
+        <mat-option value="40">40 ppm</mat-option>
+        <mat-option value="50">50 ppm</mat-option>
+        <mat-option value="60">60 ppm</mat-option>
+        <mat-option value="70">70 ppm</mat-option>
+        <mat-option value="80">80 ppm</mat-option>
+        <mat-option value="90">90 ppm</mat-option>
+        <mat-option value="100">100 ppm</mat-option>
+        <mat-option value="100">110 ppm</mat-option>
+        <mat-option value="120">120 ppm</mat-option>
+        <mat-option value="130">130 ppm</mat-option>
+        <mat-option value="140">140 ppm</mat-option>
+        <mat-option value="150">150 ppm</mat-option>
+        <mat-option value="160">160 ppm</mat-option>
+        <mat-option value="170">170 ppm</mat-option>
+        <mat-option value="180">180 ppm</mat-option>
+        <mat-option value="190">190 ppm</mat-option>
+        <mat-option value="200">220 ppm ou mais</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+
+    <hr>
+    <mat-form-field appearance="fill">
+      <mat-label>Medição da Turbidez</mat-label>
+      <mat-select>
+        <mat-option value="0">Água cristalina</mat-option>
+        <mat-option value="1">Água levemente turva</mat-option>
+        <mat-option value="2">Água turva</mat-option>
+        <mat-option value="3">Água muito turva</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o produto1</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let product of productsAffectedParam1" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o produto2</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let product of productsAffectedParam2" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o produto3</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let product of productsAffectedParam3" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Selecione o produto4</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let product of productsAffectedParam4" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </form>
+  <button mat-raised-button (click)="createProduct()">
+    Fazer cálculo
+  </button>
+</mat-card>

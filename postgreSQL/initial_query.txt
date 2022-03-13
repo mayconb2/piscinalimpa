@@ -34,7 +34,7 @@ CREATE TABLE product (
 
 CREATE TABLE calculation (
 	id bigserial not null,
-	multiplier integer not null,
+	multiplier double not null,
 	product bigint references product(id),
 	intervention_level bigint not null references intervention_level(id),
 	formula bigint references formula(id),
@@ -84,12 +84,24 @@ insert into parameter_scale(value, intervention_level, parameter) values(3, 1, 1
 insert into parameter_scale(value, intervention_level, parameter) values(4, 1, 1);
 insert into parameter_scale(value, intervention_level, parameter) values(5, 4, 1);
 insert into parameter_scale(value, intervention_level, parameter) values(6, 4, 1);
-insert into product(name, brand, affected_parameter) values ('Cloro Concentrado Tradicional', 1, 1);
-insert into formula(formula) values ('($m * $v)/ 0.65');
-insert into calculation(multiplier, product, intervention_level, formula) values (5, 1, 3, 1);
-insert into formula(formula) values ('(17 * m * v)');
-insert into calculation(multiplier, product, intervention_level, formula) values (8, 7, 3, 2);
 
+insert into parameter_scale(value, intervention_level, parameter) values(0, 3, 3);
+
+insert into parameter_scale(value, intervention_level, parameter) values(68, 2, 2);
+insert into parameter_scale(value, intervention_level, parameter) values(66, 3, 2);
+
+insert into product(name, brand, affected_parameter) values ('Cloro Concentrado Tradicional', 1, 1);
+insert into product(name, brand, affected_parameter) values ('Elevador de pH líquido', 1, 2);
+
+insert into formula(formula) values ('($m * $v)/ 0.65');
+insert into calculation(multiplier, product, intervention_level, formula) values (5.0, 1, 3, 1);
+insert into formula(formula) values ('(17 * m * v)');
+insert into calculation(multiplier, product, intervention_level, formula) values (8.0, 7, 3, 2);
+insert into formula (formula) values ('15 * v * m') -- ph hth entre 6,8 e 7,0
+insert into calculation (multiplier, product, intervention_level, formula) values (1.0, 14, 2,3);
+
+insert into formula (formula) values ('20 * v * m') -- ph hth menor 6,8
+insert into calculation (multiplier, product, intervention_level, formula) values (1.0, 14, 3,4);
 
 
 ================== BACK OFFICE ============================
