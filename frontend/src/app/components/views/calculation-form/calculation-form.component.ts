@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ApplicationForm } from '../../model/calculationForm/applicationForm';
 import { ParameterValue } from '../../model/parameterValue/parameterValue';
@@ -6,6 +5,10 @@ import { Product } from '../../model/product/product';
 import { ProductService } from '../../model/product/product.service';
 import { FormControl, FormBuilder, Validators } from '@angular/forms';
 import { CalculationFormService } from '../../model/calculationForm/calculation-form.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CalculationResultComponent } from '../calculation-result/calculation-result.component';
+import { ApplicationSuggestions } from '../../model/calculationForm/applicationSuggestions';
+import { Calculation } from '../../model/calculationForm/calculation';
 
 @Component({
   selector: 'app-calculation-form',
@@ -21,17 +24,7 @@ export class CalculationFormComponent implements OnInit {
   productsAffectedParam3: Product[] = [];
   productsAffectedParam4: Product[] = [];
 
-  selectedProducts: Product[] = [];
 
-  parameterValues: ParameterValue[] = [];
-  
-
-  pruduct: Product = {
-    name: 'Elevador Ph',
-    affectedParameter: 2,
-    brandId: 1,
-    brandName: "xunda"
-  }
 
   applicationForm: ApplicationForm = {
     volume: 0,
@@ -39,10 +32,17 @@ export class CalculationFormComponent implements OnInit {
     parameters: []
   }
 
+  public calculation: Calculation = {
+    hasMininumProducts: false,
+    applicationSuggestions: []
+  }
+
   constructor(private productService: ProductService,
-    private http: HttpClient,
+    // private http: HttpClient,
     private formBuilder: FormBuilder,
-    private calculationService: CalculationFormService) { }
+    private calculationService: CalculationFormService,
+    // private router: Router,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -105,12 +105,6 @@ export class CalculationFormComponent implements OnInit {
     this.productService.showMessage("Deu liga")
   }
 
-  createProduct() {
-    this.productService.create(this.pruduct).subscribe(() => {
-      this.showMessage()
-    })
-  }
-
   private fillProductsByParameter(allProductsFromBack: Product[]): void {
     this.productsAffectedParam1.push(...allProductsFromBack.filter(products => products.affectedParameter === 1));
     this.productsAffectedParam2.push(...allProductsFromBack.filter(products => products.affectedParameter === 2));
@@ -151,7 +145,6 @@ export class CalculationFormComponent implements OnInit {
       productsFromForm.push(...this.productsFromBackend.filter(productMap => productMap.id == id));
     })
 
-    this.selectedProducts.push(...productsFromForm);
     this.applicationForm.products.push(...productsFromForm);
     
     
@@ -172,10 +165,24 @@ export class CalculationFormComponent implements OnInit {
   }
 
   private calculate() {
-    console.log(this.applicationForm);
     this.calculationService.calculateProducts(this.applicationForm)
-      .subscribe(x => {
-        console.log(x);
+      .subscribe(calc => {
+        console.log(calc);
+        this.calculation.hasMininumProducts = calc.hasMininumProducts;
+        this.calculation.applicationSuggestions.push(...calc.applicationSuggestions);
+        this.openDialog(calc);
       })
+
+      // this.router.navigate(['/calculation-result']);
   }
+
+  public openDialog(calculation: Calculation) {
+    this.dialog.open(CalculationResultComponent, {
+      data: {...calculation}  
+    });
+
+    
+  }
+
+  
 }

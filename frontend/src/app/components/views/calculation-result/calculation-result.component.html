@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Resultado dos Cálculos</h1>
+<div mat-dialog-content>
+  Você deve aplicar as seguintes quantidades:
+  <ul>
+    <li *ngFor="let product of data.applicationSuggestions">
+       Produto: {{product.product.name}} | Marca {{product.product.brandName}} | Quantidade: {{product.suggestion}} gramas ou mililitros
+    </li>
+
+    <!-- <li>
+      {{data.hasMininumProducts}}
+    </li>
+    <li>
+     Lion
+    </li> -->
+    <li>
+      <span *ngIf="data.hasMininumProducts === false ">&#10003;</span> Unicorn
+    </li>
+  </ul>
+</div>

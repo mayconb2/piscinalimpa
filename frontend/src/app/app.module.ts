@@ -18,11 +18,14 @@ import { FooterComponent } from './components/template/footer/footer.component';
 import { NavComponent } from './components/template/nav/nav.component';
 import { HomeComponent } from './components/views/home/home.component';
 import { CalculationFormComponent } from './components/views/calculation-form/calculation-form.component';
+import { CalculationResultComponent } from './components/views/calculation-result/calculation-result.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 
 
@@ -33,7 +36,8 @@ import { MatSelectModule } from '@angular/material/select';
     FooterComponent,
     NavComponent,
     HomeComponent,
-    CalculationFormComponent
+    CalculationFormComponent,
+    CalculationResultComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

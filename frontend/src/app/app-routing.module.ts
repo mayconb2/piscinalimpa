@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { HomeComponent } from './components/views/home/home.component';
 import { CalculationFormComponent } from './components/views/calculation-form/calculation-form.component';
+import { CalculationResultComponent } from './components/views/calculation-result/calculation-result.component';
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path:"calculation",
     component: CalculationFormComponent
+  },
+  {
+    path:"calculation-result",
+    component: CalculationResultComponent
   }
 ];
 

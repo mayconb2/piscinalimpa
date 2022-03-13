@@ -1,6 +1,6 @@
-import { ApplicationSugestion } from "./applicationSugestion";
+import { ApplicationSuggestions } from "./applicationSuggestions";
 
 export interface Calculation {
   hasMininumProducts: Boolean;
-  applicationSugestion: ApplicationSugestion[];
+  applicationSuggestions: ApplicationSuggestions[];
 }

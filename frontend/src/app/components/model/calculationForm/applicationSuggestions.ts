@@ -1,6 +1,6 @@
 import { Product } from "../product/product";
 
-export interface ApplicationSugestion {
+export interface ApplicationSuggestions {
   product: Product;
-  sugestion: number;
+  suggestion: number;
 }
