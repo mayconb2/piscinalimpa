@@ -6,7 +6,7 @@ public class ApplicationForm {
 
     private Double volume;
     private List<ProductDTO> products;
-    private List<ParameterValues> parameters;
+    private List<ParameterValue> parameters;
 
     public Double getVolume() {
         return volume;
@@ -24,11 +24,11 @@ public class ApplicationForm {
         this.products = products;
     }
 
-    public List<ParameterValues> getParameters() {
+    public List<ParameterValue> getParameters() {
         return parameters;
     }
 
-    public void setParameters(List<ParameterValues> parameters) {
+    public void setParameters(List<ParameterValue> parameters) {
         this.parameters = parameters;
     }
 

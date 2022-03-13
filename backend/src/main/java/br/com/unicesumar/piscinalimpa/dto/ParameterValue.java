@@ -1,6 +1,6 @@
 package br.com.unicesumar.piscinalimpa.dto;
 
-public class ParameterValues {
+public class ParameterValue {
 
     private Long parameterId;
     private Integer value;

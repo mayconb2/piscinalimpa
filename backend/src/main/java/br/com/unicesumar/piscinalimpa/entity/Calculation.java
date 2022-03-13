@@ -22,12 +22,12 @@ public class Calculation {
     @ManyToOne
     private Formula formula;
 
-    private Integer multiplier;
+    private Double multiplier;
 
     public Calculation() {
     }
 
-    public Calculation(Long id, Product product, InterventionLevel interventionLevel, Formula formula, Integer multiplier) {
+    public Calculation(Long id, Product product, InterventionLevel interventionLevel, Formula formula, Double multiplier) {
         this.id = id;
         this.product = product;
         this.interventionLevel = interventionLevel;
@@ -67,11 +67,11 @@ public class Calculation {
         this.formula = formula;
     }
 
-    public Integer getMultiplier() {
+    public Double getMultiplier() {
         return multiplier;
     }
 
-    public void setMultiplier(Integer multiplier) {
+    public void setMultiplier(Double multiplier) {
         this.multiplier = multiplier;
     }
 }
