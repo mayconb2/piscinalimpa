@@ -1,18 +1,16 @@
 <mat-card>
   <mat-card-title>Cálculo de Produtos</mat-card-title>
-  <form>
+  <form [formGroup]="formApplication">
     
     <mat-form-field>
-      <input matInput placeholder="Volume da Piscina em m³"
-        [(ngModel)]="applicationForm.volume"
-        name="volume">
+      <input matInput placeholder="Volume da Piscina em m³" formControlName="volume">
     </mat-form-field>
 
     <hr>
 
     <mat-form-field appearance="fill">
       <mat-label>Medição de cloro</mat-label>
-      <mat-select>
+      <mat-select formControlName="chlorine">
         <mat-option value="1">1 ppm</mat-option>
         <mat-option value="2">2 ppm</mat-option>
         <mat-option value="3">3 ppm</mat-option>
@@ -26,7 +24,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Medição do pH</mat-label>
-      <mat-select>
+      <mat-select formControlName="ph">
         <mat-option value="66">Menor que 6.8</mat-option>
         <mat-option value="68">6.8</mat-option>
         <mat-option value="70">7.0</mat-option>
@@ -42,7 +40,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Medição da alcalinidade</mat-label>
-      <mat-select>
+      <mat-select formControlName="alkalinity">
         <mat-option value="0">0 ppm</mat-option>
         <mat-option value="10">10 ppm</mat-option>
         <mat-option value="20">20 ppm</mat-option>
@@ -72,7 +70,7 @@
     <hr>
     <mat-form-field appearance="fill">
       <mat-label>Medição da Turbidez</mat-label>
-      <mat-select>
+      <mat-select formControlName="turbidity">
         <mat-option value="0">Água cristalina</mat-option>
         <mat-option value="1">Água levemente turva</mat-option>
         <mat-option value="2">Água turva</mat-option>
@@ -84,28 +82,28 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Selecione o produto1</mat-label>
-      <mat-select>
+      <mat-select formControlName="productOne">
         <mat-option *ngFor="let product of productsAffectedParam1" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
       </mat-select>
     </mat-form-field>
     
     <mat-form-field appearance="fill">
       <mat-label>Selecione o produto2</mat-label>
-      <mat-select>
+      <mat-select formControlName="productTwo">
         <mat-option *ngFor="let product of productsAffectedParam2" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Selecione o produto3</mat-label>
-      <mat-select>
+      <mat-select formControlName="productThree">
         <mat-option *ngFor="let product of productsAffectedParam3" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Selecione o produto4</mat-label>
-      <mat-select>
+      <mat-select formControlName="productFour">
         <mat-option *ngFor="let product of productsAffectedParam4" value="{{product.id}}">{{product.brandName}} - {{product.name}}</mat-option>
       </mat-select>
     </mat-form-field>
@@ -113,5 +111,9 @@
   </form>
   <button mat-raised-button (click)="createProduct()">
     Fazer cálculo
+  </button>
+
+  <button mat-raised-button (click)="prepareToCalculateAndCalculate()">
+    Teste
   </button>
 </mat-card>
