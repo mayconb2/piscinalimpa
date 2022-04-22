@@ -8,7 +8,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -25,10 +24,8 @@ public class ProductService {
         this.mapper = mapper;
     }
 
-    public List<ProductDTO> findAll() {
-        var listProductsEntitie = this.productRepository.findAll();
-        return listProductsEntitie.stream().map(product -> mapper.map(product, ProductDTO.class))
-                .collect(Collectors.toList());
+    public List<Product> findAll() {
+        return this.productRepository.findAll();
     }
 
     public ProductDTO create(ProductDTO dto) {

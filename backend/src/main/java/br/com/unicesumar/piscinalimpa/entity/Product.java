@@ -14,7 +14,7 @@ public class Product {
     private Parameter affectedParameter;
 
     @JoinColumn(name = "brand")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Brand brand;
 
     private String name;
