@@ -1,6 +1,7 @@
 package br.com.unicesumar.piscinalimpa.service;
 
 import br.com.unicesumar.piscinalimpa.dto.BrandDTO;
+import br.com.unicesumar.piscinalimpa.dto.BrandForm;
 import br.com.unicesumar.piscinalimpa.entity.Brand;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.BrandRepository;
@@ -30,5 +31,11 @@ public class BrandService {
          return this.brandRepository.findAll().stream()
                  .map(brand -> mapper.map(brand, BrandDTO.class))
                  .collect(Collectors.toList());
+    }
+
+    public BrandDTO create(BrandForm brandForm) {
+        Brand brandEntity = this.mapper.map(brandForm, Brand.class);
+        Brand brandSaved = this.brandRepository.save(brandEntity);
+        return this.mapper.map(brandSaved, BrandDTO.class);
     }
 }
