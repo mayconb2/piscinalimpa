@@ -1,8 +1,12 @@
 package br.com.unicesumar.piscinalimpa.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class FormulaDTO {
 
+    @JsonProperty(value = "id")
     private Long id;
+    @JsonProperty(value = "formula")
     private String formula;
 
     public FormulaDTO() {

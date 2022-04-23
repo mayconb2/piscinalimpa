@@ -9,18 +9,15 @@ public class ProductEagerDTO {
     private String name;
     @JsonProperty(value = "brand")
     private BrandDTO brand;
-    @JsonProperty(value = "brandName")
-    private String brandName;
 
     public ProductEagerDTO() {
     }
 
-    public ProductEagerDTO(Long id, Long affectedParameterId, String name, BrandDTO brand, String brandName) {
+    public ProductEagerDTO(Long id, Long affectedParameterId, String name, BrandDTO brand) {
         this.id = id;
         this.affectedParameterId = affectedParameterId;
         this.name = name;
         this.brand = brand;
-        this.brandName = brandName;
     }
 
     public Long getId() {
@@ -55,11 +52,4 @@ public class ProductEagerDTO {
         this.name = name;
     }
 
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
 }

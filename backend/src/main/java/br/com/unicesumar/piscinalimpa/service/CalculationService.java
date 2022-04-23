@@ -121,4 +121,8 @@ public class CalculationService {
         //retornar esse map
         return affectedParams.containsAll(parametersWithInterventionLevel);
     }
+
+    public List<Calculation> findAll() {
+        return this.calculationRepository.findAll();
+    }
 }

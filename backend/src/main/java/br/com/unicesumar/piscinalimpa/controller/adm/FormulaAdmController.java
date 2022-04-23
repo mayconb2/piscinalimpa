@@ -1,7 +1,7 @@
 package br.com.unicesumar.piscinalimpa.controller.adm;
 
-import br.com.unicesumar.piscinalimpa.dto.BrandDTO;
-import br.com.unicesumar.piscinalimpa.service.BrandService;
+import br.com.unicesumar.piscinalimpa.dto.FormulaDTO;
+import br.com.unicesumar.piscinalimpa.service.FormulaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/adm/v1/brand")
+@RequestMapping("/adm/v1/formula")
 @Slf4j
-public class BrandController {
+public class FormulaAdmController {
 
-    private final BrandService brandService;
+    private final FormulaService formulaService;
 
-    public BrandController(BrandService brandService) {
-        this.brandService = brandService;
+    public FormulaAdmController(FormulaService formulaService) {
+        this.formulaService = formulaService;
     }
 
     @GetMapping
     @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
-    public ResponseEntity<List<BrandDTO>> findAll() {
+    public ResponseEntity<List<FormulaDTO>> findAll() {
         try {
-            List<BrandDTO> brandDTOS = brandService.findAll();
-            return ResponseEntity.ok(brandDTOS);
+            List<FormulaDTO> formulaDTOS = formulaService.findAll();
+            return ResponseEntity.ok(formulaDTOS);
         } catch (Exception e) {
-            log.error("Erro ao consultar lista de marcas {}", e);
+            log.error("Erro ao consultar lista de formulas {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }

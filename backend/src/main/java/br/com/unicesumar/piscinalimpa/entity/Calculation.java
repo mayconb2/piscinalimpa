@@ -11,15 +11,15 @@ public class Calculation {
     private Long id;
 
     @JoinColumn(name = "product")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Product product;
 
     @JoinColumn(name = "intervention_level")
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private InterventionLevel interventionLevel;
 
     @JoinColumn(name = "formula")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Formula formula;
 
     private Double multiplier;
