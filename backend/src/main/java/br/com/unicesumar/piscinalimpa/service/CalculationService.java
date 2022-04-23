@@ -3,13 +3,16 @@ package br.com.unicesumar.piscinalimpa.service;
 import br.com.unicesumar.piscinalimpa.controller.utils.FormulaReplace;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationSuggestionDTO;
+import br.com.unicesumar.piscinalimpa.dto.CalculationAdminDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
+import br.com.unicesumar.piscinalimpa.dto.CalculationForm;
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.entity.Calculation;
 import br.com.unicesumar.piscinalimpa.entity.ParameterScale;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.CalculationRepository;
 import com.udojava.evalex.Expression;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -26,11 +29,13 @@ public class CalculationService {
 
     private final CalculationRepository calculationRepository;
     private final ParameterScaleService parameterScaleService;
+    private final ModelMapper mapper;
     private static final Long ACCEPTABLE_LEVEL_INTERVENTION = 4L;
 
-    public CalculationService(CalculationRepository calculationRepository, ParameterScaleService parameterScaleService) {
+    public CalculationService(CalculationRepository calculationRepository, ParameterScaleService parameterScaleService, ModelMapper mapper) {
         this.calculationRepository = calculationRepository;
         this.parameterScaleService = parameterScaleService;
+        this.mapper = mapper;
     }
 
     public BigDecimal performCalculation(final Double volume, final Long productId, final Long intervantionLevel) {
@@ -124,5 +129,11 @@ public class CalculationService {
 
     public List<Calculation> findAll() {
         return this.calculationRepository.findAll();
+    }
+
+    public CalculationForm create(CalculationForm dto) {
+        var calc = mapper.map(dto, Calculation.class);
+        var calcSaved = this.calculationRepository.save(calc);
+        return mapper.map(calcSaved, CalculationForm.class);
     }
 }

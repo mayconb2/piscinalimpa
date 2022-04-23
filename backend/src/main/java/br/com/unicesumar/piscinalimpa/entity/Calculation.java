@@ -15,7 +15,7 @@ public class Calculation {
     private Product product;
 
     @JoinColumn(name = "intervention_level")
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     private InterventionLevel interventionLevel;
 
     @JoinColumn(name = "formula")
