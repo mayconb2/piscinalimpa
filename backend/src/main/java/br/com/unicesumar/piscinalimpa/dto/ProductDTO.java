@@ -8,20 +8,17 @@ public class ProductDTO {
     @JsonProperty(value = "affectedParameter")
     private Long affectedParameterId;
     private String name;
-    @JsonProperty(value = "brandId")
+    @JsonProperty(value = "brand")
     private Long brandId;
-    @JsonProperty(value = "brandName")
-    private String brandName;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(Long id, Long affectedParameterId, String name, Long brandId, String brandName) {
+    public ProductDTO(Long id, Long affectedParameterId, String name, Long brandId) {
         this.id = id;
         this.affectedParameterId = affectedParameterId;
         this.name = name;
         this.brandId = brandId;
-        this.brandName = brandName;
     }
 
     public Long getId() {
@@ -56,11 +53,4 @@ public class ProductDTO {
         this.name = name;
     }
 
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
 }
