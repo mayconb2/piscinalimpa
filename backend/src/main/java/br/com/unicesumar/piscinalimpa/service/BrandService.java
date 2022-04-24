@@ -3,6 +3,7 @@ package br.com.unicesumar.piscinalimpa.service;
 import br.com.unicesumar.piscinalimpa.dto.BrandDTO;
 import br.com.unicesumar.piscinalimpa.dto.BrandForm;
 import br.com.unicesumar.piscinalimpa.entity.Brand;
+import br.com.unicesumar.piscinalimpa.entity.Formula;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.repository.BrandRepository;
 import org.modelmapper.ModelMapper;
@@ -37,5 +38,14 @@ public class BrandService {
         Brand brandEntity = this.mapper.map(brandForm, Brand.class);
         Brand brandSaved = this.brandRepository.save(brandEntity);
         return this.mapper.map(brandSaved, BrandDTO.class);
+    }
+
+    public Brand update(Long id, BrandForm brandForm) {
+        Brand brand = this.brandRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar marca com id: " + id));
+
+        brand.setName(brandForm.getName());
+
+        return this.brandRepository.save(brand);
     }
 }
