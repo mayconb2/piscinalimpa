@@ -2,14 +2,19 @@ package br.com.unicesumar.piscinalimpa.controller.adm;
 
 import br.com.unicesumar.piscinalimpa.dto.FormulaDTO;
 import br.com.unicesumar.piscinalimpa.dto.FormulaForm;
+import br.com.unicesumar.piscinalimpa.entity.Formula;
 import br.com.unicesumar.piscinalimpa.service.FormulaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +27,11 @@ import java.util.List;
 public class FormulaAdmController {
 
     private final FormulaService formulaService;
+    private final ModelMapper mapper;
 
-    public FormulaAdmController(FormulaService formulaService) {
+    public FormulaAdmController(FormulaService formulaService, ModelMapper mapper) {
         this.formulaService = formulaService;
+        this.mapper = mapper;
     }
 
     @GetMapping
@@ -47,6 +54,31 @@ public class FormulaAdmController {
             return ResponseEntity.status(HttpStatus.CREATED).body(formulaDto);
         } catch (Exception e) {
             log.error("Erro ao criar formula: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @GetMapping(value = "/{id}")
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
+    public ResponseEntity<FormulaDTO> findById(@PathVariable Long id) {
+        try {
+            Formula formulaEntity = formulaService.findById(id);
+            return  ResponseEntity.ok(this.mapper.map(formulaEntity, FormulaDTO.class));
+        } catch (Exception e) {
+            log.error("Erro ao consultar fórmulas {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PutMapping(value = "/{id}")
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
+    public ResponseEntity<FormulaDTO> updateFormula(@PathVariable Long id ,@RequestBody FormulaForm formulaForm) {
+        try {
+            Formula formulaUpdated = this.formulaService.update(id, formulaForm);
+            return ResponseEntity.ok(this.mapper.map(formulaUpdated, FormulaDTO.class));
+        } catch (Exception e) {
+            log.error("Erro ao atualizar formula: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
