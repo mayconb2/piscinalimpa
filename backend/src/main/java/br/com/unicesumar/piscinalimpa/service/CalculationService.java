@@ -3,7 +3,6 @@ package br.com.unicesumar.piscinalimpa.service;
 import br.com.unicesumar.piscinalimpa.controller.utils.FormulaReplace;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationSuggestionDTO;
-import br.com.unicesumar.piscinalimpa.dto.CalculationAdminDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationForm;
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
@@ -29,13 +28,19 @@ public class CalculationService {
 
     private final CalculationRepository calculationRepository;
     private final ParameterScaleService parameterScaleService;
+    private final ProductService productService;
     private final ModelMapper mapper;
+    private final FormulaService formulaService;
+    private final InterventionLevelService interventionLevelService;
     private static final Long ACCEPTABLE_LEVEL_INTERVENTION = 4L;
 
-    public CalculationService(CalculationRepository calculationRepository, ParameterScaleService parameterScaleService, ModelMapper mapper) {
+    public CalculationService(CalculationRepository calculationRepository, ParameterScaleService parameterScaleService, ProductService productService, ModelMapper mapper, FormulaService formulaService, InterventionLevelService interventionLevelService) {
         this.calculationRepository = calculationRepository;
         this.parameterScaleService = parameterScaleService;
+        this.productService = productService;
         this.mapper = mapper;
+        this.formulaService = formulaService;
+        this.interventionLevelService = interventionLevelService;
     }
 
     public BigDecimal performCalculation(final Double volume, final Long productId, final Long intervantionLevel) {
@@ -135,5 +140,37 @@ public class CalculationService {
         var calc = mapper.map(dto, Calculation.class);
         var calcSaved = this.calculationRepository.save(calc);
         return mapper.map(calcSaved, CalculationForm.class);
+    }
+
+    public Calculation findById(Long id) {
+        return this.calculationRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar o calculo com id: " + id));
+    }
+
+    public Calculation update(Long id, CalculationForm dto) {
+        var calculation = this.calculationRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível localizar o calculo com id: " + dto.getId()));
+
+        if(!dto.getFormulaId().equals(calculation.getFormula().getId())) {
+            var interventionLevel = this.interventionLevelService.findById(dto.getInterventionLevelId());
+            calculation.setInterventionLevel(interventionLevel);
+        }
+
+        if(!dto.getMultiplier().equals(calculation.getMultiplier())) {
+            calculation.setMultiplier(dto.getMultiplier());
+        }
+
+        if(!dto.getFormulaId().equals(calculation.getFormula().getId())) {
+            var formula = this.formulaService.findById(dto.getFormulaId());
+            calculation.setFormula(formula);
+        }
+
+        if(!dto.getProductId().equals(calculation.getProduct().getId())) {
+            var product = productService.findById(dto.getProductId());
+            calculation.setProduct(product);
+        }
+
+        return calculationRepository.save(calculation);
+
     }
 }

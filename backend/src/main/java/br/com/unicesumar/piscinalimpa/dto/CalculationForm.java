@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class CalculationForm {
 
     private Long id;
-    private Integer multiplier;
+    private Double multiplier;
     @JsonProperty(value = "product")
     private Long productId;
     @JsonProperty(value = "interventionLevel")
@@ -16,7 +16,7 @@ public class CalculationForm {
     public CalculationForm() {
     }
 
-    public CalculationForm(Long id, Integer multiplier, Long productId, Long interventionLevelId, Long formulaId) {
+    public CalculationForm(Long id, Double multiplier, Long productId, Long interventionLevelId, Long formulaId) {
         this.id = id;
         this.multiplier = multiplier;
         this.productId = productId;
@@ -32,11 +32,11 @@ public class CalculationForm {
         this.id = id;
     }
 
-    public Integer getMultiplier() {
+    public Double getMultiplier() {
         return multiplier;
     }
 
-    public void setMultiplier(Integer multiplier) {
+    public void setMultiplier(Double multiplier) {
         this.multiplier = multiplier;
     }
 
