@@ -34,8 +34,8 @@ public class ProductService {
         return mapper.map(savedProduct, ProductDTO.class);
     }
 
-    public ProductDTO update(ProductDTO dto) {
-        var product = this.productRepository.findById(dto.getId())
+    public Product update(Long id, ProductDTO dto) {
+        var product = this.productRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Não foi possível localizar produto com id: " + dto.getId()));
 
         if (!dto.getAffectedParameterId().equals(product.getAffectedParameter().getId())) {
@@ -43,7 +43,7 @@ public class ProductService {
             product.setAffectedParameter(parameter);
         }
 
-        if (dto.getBrandId().equals(product.getBrand().getId())) {
+        if (!dto.getBrandId().equals(product.getBrand().getId())) {
             var brand = brandService.findById(dto.getBrandId());
             product.setBrand(brand);
         }
@@ -52,11 +52,16 @@ public class ProductService {
             product.setName(dto.getName());
         }
 
-        var updatedProduct = productRepository.save(product);
-        return mapper.map(updatedProduct, ProductDTO.class);
+        return productRepository.save(product);
+
     }
 
     public void deleteById(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public Product findById(Long id) {
+        return this.productRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar produto com id: " + id));
     }
 }
