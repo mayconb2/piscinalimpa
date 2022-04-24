@@ -1,9 +1,12 @@
 package br.com.unicesumar.piscinalimpa.service;
 
-import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
+import br.com.unicesumar.piscinalimpa.dto.UserBackofficeForm;
 import br.com.unicesumar.piscinalimpa.entity.UserBackoffice;
 import br.com.unicesumar.piscinalimpa.entity.UserType;
+import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
+import br.com.unicesumar.piscinalimpa.exception.PasswordDoesntMatchException;
+import br.com.unicesumar.piscinalimpa.exception.UserTypeNotAllowed;
 import br.com.unicesumar.piscinalimpa.repository.UserBackofficeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,5 +44,31 @@ public class UserService {
         }
 
         return userRepository.save(mapper.map(dto, UserBackoffice.class));
+    }
+
+    public UserBackoffice findById(Long id) {
+        return this.userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar usuário com id: " + id));
+    }
+
+    public UserBackoffice update(Long id, UserBackofficeForm userForm) {
+
+        if(!this.verifyOldPassword(id, userForm.getOldPassword())) {
+            throw new PasswordDoesntMatchException("Password não confere!");
+        }
+
+        UserBackoffice user = this.userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar usuário com id: " + id));
+
+        user.setPassword(passwordEncoder.encode(userForm.getNewPassword()));
+
+        return this.userRepository.save(user);
+    }
+
+    public Boolean verifyOldPassword(Long id, String password) {
+        UserBackoffice userBackoffice = this.userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Não foi possível achar usuário com id: " + id));
+
+        return passwordEncoder.matches(password, userBackoffice.getPassword());
     }
 }
