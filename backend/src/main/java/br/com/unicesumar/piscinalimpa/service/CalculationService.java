@@ -173,4 +173,8 @@ public class CalculationService {
         return calculationRepository.save(calculation);
 
     }
+
+    public void deleteById(Long id) {
+        this.calculationRepository.deleteById(id);
+    }
 }

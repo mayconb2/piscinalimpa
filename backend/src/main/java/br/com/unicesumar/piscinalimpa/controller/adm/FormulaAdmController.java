@@ -96,10 +96,10 @@ public class FormulaAdmController {
             return ResponseEntity.ok(null);
         } catch (EmptyResultDataAccessException nfe) {
             log.error("Erro de violação de constraint ao deletar fórmula: {}", nfe);
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Há produto(s) que utiliza(m) essa fórmula!");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         } catch (DataIntegrityViolationException e) {
-            log.error("Erro ao deletar fórmula: {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            log.error("Violação de constraint: {}", e);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (Exception e) {
             log.error("Erro ao deletar fórmula: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());

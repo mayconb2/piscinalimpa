@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,6 +55,9 @@ public class ProductAdmController {
         try {
             productService.deleteById(id);
             return ResponseEntity.ok(null);
+        } catch (DataIntegrityViolationException e) {
+            log.error("Violação de constraint: {}", e);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         } catch (EmptyResultDataAccessException nfe) {
             log.error("Produt não encontrado: {}", nfe);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
