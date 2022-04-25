@@ -29,13 +29,13 @@ public class TrelloController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCardSuggestion(@RequestBody TrelloCardSugestionForm form){
+    public ResponseEntity createCardSuggestion(@RequestBody TrelloCardSugestionForm form){
 
         try {
             String newCardSuggestionResponse = trelloService.createNewCardSuggestion(form);
 
             if (newCardSuggestionResponse.equalsIgnoreCase("OK")) {
-                return ResponseEntity.ok().body("Sugestão registrada com sucesso!");
+                return ResponseEntity.ok().body(null);
             }
 
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Não foi possível registrar sua sugestão. " +

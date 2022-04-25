@@ -45,8 +45,8 @@ public class TrelloService {
     public String createNewCardSuggestion(TrelloCardSugestionForm form) {
 
         TrelloCardSugestionForm dto = new TrelloCardSugestionForm();
-        dto.setName(form.getName());
-        dto.setDesc("Marca do produto: " + form.getDesc());
+        dto.setName("Quem sugeriu: " + form.getName());
+        dto.setDesc("Nome e Marca do produto: " + form.getDesc());
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(trelloBaseUrl.get())
                 .queryParam("key",trelloKey)

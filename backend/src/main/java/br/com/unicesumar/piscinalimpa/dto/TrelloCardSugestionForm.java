@@ -1,9 +1,12 @@
 package br.com.unicesumar.piscinalimpa.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class TrelloCardSugestionForm {
 
     private String name;
     private String pos = "top";
+    @JsonProperty(value = "description")
     private String desc;
 
     public TrelloCardSugestionForm() {
