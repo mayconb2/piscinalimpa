@@ -4,22 +4,22 @@ import java.math.BigDecimal;
 
 public class ApplicationSuggestionDTO {
 
-    private ProductDTO product;
+    private ProductFormDTO product;
     private BigDecimal suggestion;
 
     public ApplicationSuggestionDTO() {
     }
 
-    public ApplicationSuggestionDTO(ProductDTO product, BigDecimal suggestion) {
+    public ApplicationSuggestionDTO(ProductFormDTO product, BigDecimal suggestion) {
         this.product = product;
         this.suggestion = suggestion;
     }
 
-    public ProductDTO getProduct() {
+    public ProductFormDTO getProduct() {
         return product;
     }
 
-    public void setProduct(ProductDTO product) {
+    public void setProduct(ProductFormDTO product) {
         this.product = product;
     }
 

@@ -6,6 +6,7 @@ import br.com.unicesumar.piscinalimpa.dto.ApplicationSuggestionDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationForm;
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
+import br.com.unicesumar.piscinalimpa.dto.ProductFormDTO;
 import br.com.unicesumar.piscinalimpa.entity.Calculation;
 import br.com.unicesumar.piscinalimpa.entity.ParameterScale;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
@@ -122,7 +123,7 @@ public class CalculationService {
 
         var affectedParams = applicationForm.getProducts()
                 .stream()
-                .map(ProductDTO::getAffectedParameterId)
+                .map(ProductFormDTO::getAffectedParameterId)
                 .collect(Collectors.toList());
 
         //talvez criar um Map de boolean,listparams

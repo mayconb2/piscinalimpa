@@ -2,6 +2,7 @@ package br.com.unicesumar.piscinalimpa.controller.api;
 
 import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
+import br.com.unicesumar.piscinalimpa.dto.ProductFormDTO;
 import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.CalculationService;
 import lombok.extern.slf4j.Slf4j;

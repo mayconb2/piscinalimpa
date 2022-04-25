@@ -5,7 +5,7 @@ import java.util.List;
 public class ApplicationForm {
 
     private Double volume;
-    private List<ProductDTO> products;
+    private List<ProductFormDTO> products;
     private List<ParameterValue> parameters;
 
     public Double getVolume() {
@@ -16,11 +16,11 @@ public class ApplicationForm {
         this.volume = volume;
     }
 
-    public List<ProductDTO> getProducts() {
+    public List<ProductFormDTO> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductDTO> products) {
+    public void setProducts(List<ProductFormDTO> products) {
         this.products = products;
     }
 
