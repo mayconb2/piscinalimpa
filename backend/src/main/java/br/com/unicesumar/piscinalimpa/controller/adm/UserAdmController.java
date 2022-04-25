@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/user")
+@RequestMapping("/adm/v1/user")
 @Slf4j
 public class UserAdmController {
 
@@ -50,7 +50,7 @@ public class UserAdmController {
     }
 
     @PostMapping
-//    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity createUser(@RequestBody UserBackofficeDTO userDTO) {
         try {
             var user = userService.createUser(userDTO);
