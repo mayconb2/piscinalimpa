@@ -47,4 +47,8 @@ public class FormulaService {
 
         return this.formulaRepository.save(formula);
     }
+
+    public void deleteById(Long id) {
+        this.formulaRepository.deleteById(id);
+    }
 }

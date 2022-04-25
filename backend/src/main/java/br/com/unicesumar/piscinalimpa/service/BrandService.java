@@ -48,4 +48,8 @@ public class BrandService {
 
         return this.brandRepository.save(brand);
     }
+
+    public void deleteById(Long id) {
+        this.brandRepository.deleteById(id);
+    }
 }

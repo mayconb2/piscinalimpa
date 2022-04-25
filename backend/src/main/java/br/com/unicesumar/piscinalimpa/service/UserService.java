@@ -71,4 +71,8 @@ public class UserService {
 
         return passwordEncoder.matches(password, userBackoffice.getPassword());
     }
+
+    public void deleteById(Long id) {
+        this.userRepository.deleteById(id);
+    }
 }

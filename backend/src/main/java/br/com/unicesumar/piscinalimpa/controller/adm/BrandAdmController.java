@@ -11,9 +11,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +86,26 @@ public class BrandAdmController {
         } catch (Exception e) {
             log.error("Erro ao atualizar marca: {}", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    @CrossOrigin(origins = "*")
+    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
+    public ResponseEntity deleteProduct(@PathVariable Long id) {
+
+        try {
+            brandService.deleteById(id);
+            return ResponseEntity.ok(null);
+        } catch (EmptyResultDataAccessException nfe) {
+            log.error("Marca não encontrada: {}", nfe);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
+        } catch (DataIntegrityViolationException e) {
+            log.error("Violação constraint: {}", e);
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("Erro ao deletar marca: {}", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 }

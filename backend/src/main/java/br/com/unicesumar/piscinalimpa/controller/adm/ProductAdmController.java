@@ -2,11 +2,7 @@ package br.com.unicesumar.piscinalimpa.controller.adm;
 
 import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.dto.ProductEagerDTO;
-import br.com.unicesumar.piscinalimpa.dto.UserBackofficeDTO;
-import br.com.unicesumar.piscinalimpa.dto.UserBackofficeForm;
 import br.com.unicesumar.piscinalimpa.entity.Product;
-import br.com.unicesumar.piscinalimpa.entity.UserBackoffice;
-import br.com.unicesumar.piscinalimpa.exception.NotFoundException;
 import br.com.unicesumar.piscinalimpa.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.Authorization;
@@ -15,7 +11,15 @@ import org.modelmapper.ModelMapper;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/adm/v1/product")
@@ -42,30 +46,16 @@ public class ProductAdmController {
         }
     }
 
-   /* @PutMapping
-    @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
-    public ResponseEntity updateProduct(@RequestBody ProductDTO dto) {
-        try {
-            ProductDTO updatedto = this.productService.update(dto);
-            return ResponseEntity.ok(updatedto);
-        } catch (NotFoundException nfe) {
-            log.error("Erro ao atualizar produto: {}", nfe);
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
-        } catch (Exception e) {
-            log.error("Erro ao atualizar produto: {}", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
-        }
-    }*/
-
     @DeleteMapping(value = "/{id}")
+    @CrossOrigin(origins = "*")
     @ApiOperation(value = "Bearer Token Needed", authorizations = { @Authorization(value="jwtToken") })
     public ResponseEntity deleteProduct(@PathVariable Long id) {
 
         try {
             productService.deleteById(id);
-            return ResponseEntity.ok("Produto de id: "+ id + " foi deletado com sucesso");
+            return ResponseEntity.ok(null);
         } catch (EmptyResultDataAccessException nfe) {
-            log.error("Erro ao atualizar produto: {}", nfe);
+            log.error("Produt não encontrado: {}", nfe);
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(nfe.getMessage());
         } catch (Exception e) {
             log.error("Erro ao deletar produto: {}", e);

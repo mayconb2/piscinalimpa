@@ -1,6 +1,9 @@
 package br.com.unicesumar.piscinalimpa.entity;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity(name = "calculation")
