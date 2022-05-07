@@ -5,7 +5,6 @@ import br.com.unicesumar.piscinalimpa.dto.ApplicationForm;
 import br.com.unicesumar.piscinalimpa.dto.ApplicationSuggestionDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationDTO;
 import br.com.unicesumar.piscinalimpa.dto.CalculationForm;
-import br.com.unicesumar.piscinalimpa.dto.ProductDTO;
 import br.com.unicesumar.piscinalimpa.dto.ProductFormDTO;
 import br.com.unicesumar.piscinalimpa.entity.Calculation;
 import br.com.unicesumar.piscinalimpa.entity.ParameterScale;
@@ -52,28 +51,6 @@ public class CalculationService {
                 calculation.getMultiplier(), volume);
 
         return new Expression(formula).eval();
-    }
-
-    public List<ApplicationSuggestionDTO> suggestions(ApplicationForm applicationForms) {
-
-//        List<ApplicationSuggestionDTO> suggestions = new ArrayList<>();
-//
-//        applicationForms.getProducts().forEach(product -> {
-//            Calculation calculation = this.calculationRepository
-//                    .findByProductIdAndInterventionLevelId(product.getId(), applicationForms.getInterventionLevel())
-//                    .orElse(null);
-//
-//            String formula = FormulaReplace.replaceMultiplierAndVolumeIn(calculation.getFormula().getFormula(),
-//                    calculation.getMultiplier(), applicationForms.getVolume());
-//
-//            BigDecimal productSuggestion = new Expression(formula).eval();
-//
-//            suggestions.add(new ApplicationSuggestionDTO(product, productSuggestion));
-//        });
-//
-//        return suggestions;
-
-        return null;
     }
 
     public CalculationDTO retrieveProductsSuggestion(ApplicationForm form) {
@@ -126,7 +103,7 @@ public class CalculationService {
                 .map(ProductFormDTO::getAffectedParameterId)
                 .collect(Collectors.toList());
 
-        //talvez criar um Map de boolean,listparams
+        //todo talvez criar um Map de boolean,listparams
         //se for falso, lista vazia. Se for true, contem os params que precisão de intervanção mas n tem produto
         //adicionar cmapo no dto com dtos dos parametros que precisam de intervenção mas n tem produto
         //retornar esse map
